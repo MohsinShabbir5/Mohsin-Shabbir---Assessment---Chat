@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { useAppContext } from './context/socket';
 import {
 	Grid,
 	TextField,
 	Paper,
 	Button
 } from '@material-ui/core';
+import { useAppContext } from './context/socket';
 
 
 const Login = ({setIsConnected}) => {
@@ -18,16 +18,16 @@ const Login = ({setIsConnected}) => {
 
 	useEffect(() => {
 		if (socket) {
-			socket.on("new-user-connected", ({ userID }) => {
-				if (userID) {
-					setIsConnected(true);
-					setUserData({
-						userID,
-						name: userName,
-					});
-					return;
-				}
-				setIsConnected(false);
+			socket.on("new-user-connected", (userID) => {
+				setUserData({
+					userID,
+					userName,
+				});
+				setIsConnected(true);
+				socket.emit("addUserToChatList",{
+					userID,
+					userName,
+				});
 			});
 		}
 	}, [socket])

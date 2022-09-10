@@ -3,6 +3,7 @@ import Chat from './Chat';
 import AppContextProvider from './context/socket';
 import { createStyles, makeStyles } from "@material-ui/core/styles";
 import Login from './Login';
+import SideBar from './SideBar';
 
 
 const useStyles = makeStyles((theme) =>
@@ -24,11 +25,12 @@ function App() {
 
 	return (
 		<AppContextProvider>
-
 			{
 				isConnected ?
-					<Chat />
-					: <div className={classes.container}>
+					<SideBar>
+						<Chat />
+					</SideBar>
+					: <div>
 						<Login setIsConnected={setIsConnected} />
 					</div>
 			}
