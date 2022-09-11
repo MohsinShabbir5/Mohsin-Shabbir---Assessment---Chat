@@ -3,11 +3,8 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import List from "@material-ui/core/List";
-import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
-import HomeIcon from "@material-ui/icons/Home";
 import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import { useAppContext } from './context/socket';
 
@@ -39,11 +36,9 @@ const styles = theme => ({
 const SideBar = ({ classes, children }) => {
 	const {
 		userData,
-		socket,
 		totalUserCount,
-		setTotalUserCount,
 		activeUsersList,
-		setActiveUsersList,
+		selectedUserForChat,
 		setSelectedUserForChat,
 		messages,
 		setMessages,
@@ -93,7 +88,7 @@ const SideBar = ({ classes, children }) => {
 									onClick={() => selectUserForChat(user)}
 									button
 									key={user.userID}
-									selected={true}
+									selected={selectedUserForChat.userID === user.userID}
 								>
 									<ListItemText>{user.userName}</ListItemText>
 								</ListItem>

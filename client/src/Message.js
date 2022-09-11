@@ -85,10 +85,11 @@ const useStyles = makeStyles((theme) =>
 
     messageContent: {
       padding: 0,
-      margin: 0
+      margin: 0,
+	  wordWrap: 'break-word'
     },
     messageTimeStampRight: {
-      position: "absolute",
+    //   position: "absolute",
       fontSize: ".85em",
       fontWeight: "300",
       marginTop: "10px",

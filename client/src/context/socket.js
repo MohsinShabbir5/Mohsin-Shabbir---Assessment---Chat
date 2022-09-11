@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useState, useContext, useEffect } from 'react';
 import io from 'socket.io-client';
 
 export const AppContext = createContext();
@@ -18,14 +18,50 @@ const AppContextProvider = ({ children }) => {
 		});
 
 		setSocket(socket);
+		// return socket;
 	}
 
-
-	socket?.on("updatedUsersList", ({ usersList, totalUsersConnected }) => {
-		setTotalUserCount(totalUsersConnected - 1);
-		const activeUsersList = usersList.filter(({ userID }) => userID !== socket.id);
-		setActiveUsersList(activeUsersList);
+	socket?.on("messageReceived", (currentMessageObj) => {
+		const olderMessages = messages[currentMessageObj.from] || [];
+		setMessages({
+			...messages,
+			[currentMessageObj.from]: [
+				...olderMessages,
+				currentMessageObj,
+			]
+		});
 	});
+
+	useEffect(() => {
+		socket?.on("new-user-connected", (userID) => {
+
+			const test = {
+				...userData,
+				userID,
+			}
+
+			console.log(test);
+
+			setUserData({
+				...userData,
+				userID,
+			});
+
+			socket.emit("addUserToChatList", {
+				...userData,
+				userID,
+			});
+		});
+
+		socket?.on("updatedUsersList", ({ usersList, totalUsersConnected }) => {
+
+			setTotalUserCount(totalUsersConnected - 1);
+
+			const activeUsersList = usersList.filter(({ userID }) => userID !== socket.id);
+
+			setActiveUsersList(activeUsersList);
+		});
+	}, [socket])
 
 	return (
 		<AppContext.Provider

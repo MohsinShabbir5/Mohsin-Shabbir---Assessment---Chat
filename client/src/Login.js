@@ -16,24 +16,12 @@ const Login = ({setIsConnected}) => {
 		setUserName(event.target.value)
 	}
 
-	useEffect(() => {
-		if (socket) {
-			socket.on("new-user-connected", (userID) => {
-				setUserData({
-					userID,
-					userName,
-				});
-				setIsConnected(true);
-				socket.emit("addUserToChatList",{
-					userID,
-					userName,
-				});
-			});
-		}
-	}, [socket])
-
-	const onClick = () => {
+	const onClick = async () => {
 		createConnection();
+		setUserData({
+			userName,
+		});
+		setIsConnected(true);
 	}
 
 	return (

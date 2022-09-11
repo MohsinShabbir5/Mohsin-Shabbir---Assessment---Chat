@@ -24,6 +24,11 @@ io.on("connection", (socket) => {
 		});
 	});
 
+	socket.on("sendMessage", (currentMessageObj) => {
+		socket.to(currentMessageObj.to).emit("messageReceived", currentMessageObj);
+	});
+
+
 	socket.on("disconnect", () => {
 		console.log("Client disconnected");
 		const updatedUsers = io.users ? io.users.filter(({ userID }) => userID !== socket.id) : [];
