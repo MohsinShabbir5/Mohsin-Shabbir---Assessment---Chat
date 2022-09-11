@@ -37,7 +37,7 @@ export const TextInput = ({sendMessage}) => {
 
     return (
         <>
-            <form className={classes.wrapForm}  noValidate autoComplete="off">
+            <form className={classes.wrapForm}  noValidate autoComplete="off" onSubmit={onClick}>
             <TextField
                 id="standard-text"
                 label="Write you Message"
@@ -45,7 +45,7 @@ export const TextInput = ({sendMessage}) => {
                 onChange={handleChange}
 				value={message}
             />
-            <Button variant="contained" color="primary" className={classes.button} onClick={onClick}>
+            <Button variant="contained" color="primary" className={classes.button} onClick={onClick} disabled={!message}>
                 <SendIcon />
             </Button>
             </form>

@@ -29,7 +29,7 @@ const styles = theme => ({
 	content: {
 		flexGrow: 1,
 		backgroundColor: theme.palette.background.default,
-		padding: theme.spacing.unit * 3
+		padding: theme.spacing(3),
 	}
 });
 
@@ -67,32 +67,47 @@ const SideBar = ({ classes, children }) => {
 				anchor="left"
 			>
 				<div className={classes.toolbar} />
-				<div style={{ marginBottom: '15' }}>Other Active Users: <b>{totalUserCount}</b></div>
+				<div style={{ padding: '1rem', backgroundColor: '#ADFF2F' }}>Other Online Users : <b>{totalUserCount}</b></div>
 				<Divider />
-				<div >Loged In User: <b>{userName}</b></div>
+				<div style={{ backgroundColor: '#FFA500', padding: '1rem' }}>Loged In User: <b>{userName}</b></div>
 				<Divider />
 				<List>
-					{/* <ListItem>
-				<ListItemIcon><HomeIcon /></ListItemIcon>
-					<ListItemText>Home</ListItemText>
-				</ListItem> */}
 					{
 						!activeUsersList?.length ?
 							<ListItem
 								selected={true}
+								key='key'
 							>
 								<ListItemText>No One Online Currently</ListItemText>
 							</ListItem> :
-							activeUsersList.map(user => {
-								return <ListItem
-									onClick={() => selectUserForChat(user)}
-									button
-									key={user.userID}
-									selected={selectedUserForChat.userID === user.userID}
+							<>
+								<ListItem
+									selected={true}
+									key='key'
+									style={{backgroundColor: '#89CFF0'}}
+
 								>
-									<ListItemText>{user.userName}</ListItemText>
+									<ListItemText>Active Users List......</ListItemText>
 								</ListItem>
-							})
+								{
+									activeUsersList.map(user => {
+										return (
+											<>
+												<ListItem
+													onClick={() => selectUserForChat(user)}
+													button
+													key={user.userID}
+													selected={selectedUserForChat?.userID === user?.userID}
+												>
+													<ListItemText key={user.userID}>{user.userName}</ListItemText>
+												</ListItem>
+												<Divider />
+											</>
+										)
+
+									})
+								}
+							</>
 					}
 
 				</List>

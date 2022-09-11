@@ -10,6 +10,8 @@ const useStyles = makeStyles((theme) =>
 	createStyles({
 		container: {
 			height: "100vh",
+			width: "50%",
+			position: 'fixed',
 		},
 		messagesBody: {
 			width: "calc( 100% - 20px )",
@@ -59,9 +61,9 @@ function Chat() {
 			if (from !== userData.userID) {
 				return (
 					<MessageRight
+					    displayName={selectedUserForChat.userName}
 						message={message}
 						timestamp="MM/DD 00:00"
-						displayName="User 2"
 						avatarDisp={true}
 					/>
 				)
@@ -84,7 +86,13 @@ function Chat() {
 				!selectedUserForChat ?
 					<Typography>No one is selected for chat. You can select a user from list and start conversation</Typography>
 					:
-					<Paper zDepth={2}>
+					!selectedUserMessages?.length ?
+					<>
+					<div style={{marginLeft: '2rem', marginBottom: '2rem', backgroundColor: '#D3D3D3',padding:'2rem'}}>Write the message to start the conversation</div>
+					 <TextInput sendMessage={sendMessage} />
+					 </>
+					 :
+					<Paper>
 						<Paper id="style-1" className={classes.messagesBody}>
 							{renderMessages(selectedUserMessages)}
 						</Paper>
