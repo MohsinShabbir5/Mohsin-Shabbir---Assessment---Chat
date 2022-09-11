@@ -34,14 +34,6 @@ const AppContextProvider = ({ children }) => {
 
 	useEffect(() => {
 		socket?.on("new-user-connected", (userID) => {
-
-			const test = {
-				...userData,
-				userID,
-			}
-
-			console.log(test);
-
 			setUserData({
 				...userData,
 				userID,
@@ -61,7 +53,7 @@ const AppContextProvider = ({ children }) => {
 
 			setActiveUsersList(activeUsersList);
 		});
-	}, [socket])
+	}, [socket,userData])
 
 	return (
 		<AppContext.Provider
