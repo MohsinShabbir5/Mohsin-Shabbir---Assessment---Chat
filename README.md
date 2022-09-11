@@ -32,11 +32,12 @@ Mohsin Shabbir
 1.0.0
 
 ### Status
-This project is for the assessment and currently I have added the express code which  creates a socket IO server and with client ( React JS ) with socket IO client which is currently handling the socket IO server via context api
+This project is for the assessment and its a full fledged chat application for multiple users. Multiple users can connect thorough the server and can chat.
 
 ### Tasks Accomplished
-Currently a user can enter into a chat room and connects with the socket server. The UI is added for login and chat screen using material ui but the chat screen is not dynamic currently
+Most of the tasks accomplished already even some additional functionalities also added (which are not mentioned in assessment)
+
+ - User can view the list of other online users
 
 ### Tasks Remaining
-- To make the chat screen dynamic and able to see the current messages
-- add another screen to view the list of connected users to the server
+- The Ui can be much better
